@@ -66,7 +66,7 @@ echo -e "\n---- Install python packages ----"
 sudo apt-get install python-dateutil python-feedparser python-ldap python-libxslt1 python-lxml python-mako python-openid python-psycopg2 python-pybabel python-pychart python-pydot python-pyparsing python-reportlab python-simplejson python-tz python-vatnumber python-vobject python-webdav python-werkzeug python-xlwt python-yaml python-zsi python-docutils python-psutil python-mock python-unittest2 python-jinja2 python-pypdf python-decorator python-requests python-passlib python-pil -y python-suds
 
 echo -e "\n---- Install python libraries ----"
-sudo pip install gdata psycogreen ofxparse XlsxWriter xlrd
+sudo pip install gdata psycogreen ofxparse XlsxWriter xlrd pysftp boto oauthlib
 
 echo -e "\n--- Install other required packages"
 sudo apt-get install node-clean-css -y
@@ -253,9 +253,21 @@ echo "Done! The Odoo server is up and running. Specifications:"
 echo "Port: $OE_PORT"
 echo "User service: $OE_USER"
 echo "User PostgreSQL: $OE_USER"
-echo "Code location: $OE_USER"
+echo "Code location: $OE_HOME"
 echo "Addons folder: $OE_USER/$OE_CONFIG/addons/"
 echo "Start Odoo service: sudo service $OE_CONFIG start"
 echo "Stop Odoo service: sudo service $OE_CONFIG stop"
 echo "Restart Odoo service: sudo service $OE_CONFIG restart"
 echo "-----------------------------------------------------------"
+
+echo -e "\n---- Clone saas responsitories --------------------------------------------------------------------------------"
+cd /home/odoo
+git clone -b 10.0 https://github.com/it-projects-llc/odoo-saas-tools.git
+git clone -b 10.0 https://github.com/it-projects-llc/e-commerce.git
+git clone -b 10.0 https://github.com/it-projects-llc/access-addons.git
+git clone -b 10.0 https://github.com/OCA/contract.git
+
+echo -e "\n----------------------------------- Adding certbot respository and Install-----------------------------------"
+echo "sudo add-apt-repository ppa:certbot/certbot"
+echo "sudo apt-get update && sudo apt-get upgrade -y"
+echo "sudo apt-get install -y certbot"
